@@ -621,6 +621,17 @@ public abstract class ForeignReferenceMapping extends DatabaseMapping {
                     }
                     index++;
                 }
+                //force include source key in batch
+                if (!foreignKeys.contains(sourceKey)) {
+                    Object[] key = ((CacheId)sourceKey).getPrimaryKey();
+                    Object foreignKeyValue = key[0];
+                    // Support composite keys using nested IN.
+                    if (key.length > 1) {
+                        foreignKeyValue = Arrays.asList(key);
+                    }
+                    foreignKeyValues.add(foreignKeyValue);
+                    foreignKeys.add(sourceKey);
+                }
                 // Need to compute remaining rows, this is tricky because a page in the middle could have been processed.
                 List<AbstractRecord> remainingParentRows;
                 if (startIndex == 0) {
