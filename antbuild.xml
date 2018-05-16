@@ -176,7 +176,7 @@
     </tstamp>
     <property name="build.type" value="SNAPSHOT"/>
     <property name="git.hash"   value="NA"/>
-    <condition property="version.qualifier" value="qualifier" else="v${build.date}-${git.hash}">
+    <condition property="version.qualifier" value="v${build.date}-CITC5" else="v${build.date}-${git.hash}">
         <equals arg1="${git.hash}" arg2="NA"/>
     </condition>
     <property name="version.string"      value="${release.version}.${version.qualifier}"/>
